@@ -1,0 +1,456 @@
+.shop-app {
+  min-height: 100vh;
+  background: #f3f1ec;
+  color: #1c2530;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.shop-header {
+  background: #1f3a5f;
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shop-header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.header-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.shop-app .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0 12px;
+}
+
+.section-header-row h2 {
+  margin: 0;
+}
+
+.mode-badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #fde68a;
+}
+
+.shop-app h2 {
+  font-size: 1.2rem;
+  margin: 20px 0 12px;
+  color: #1f3a5f;
+}
+
+.shop-app .card {
+  background: #fff;
+  border: 1px solid #ddd8cd;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.shop-app .card h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.shop-app input {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 1px solid #c9c4b8;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #faf9f6;
+  transition: border-color 0.2s;
+}
+
+.shop-app input:focus {
+  outline: none;
+  border-color: #1f3a5f;
+  background: #fff;
+}
+
+.shop-app .search-input {
+  margin-bottom: 16px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 12px 18px;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #4b5563;
+}
+
+.success-msg {
+  color: #166534;
+  background: #dcfce7;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin: 0 0 12px;
+}
+
+.error-msg {
+  color: #991b1b;
+  background: #fee2e2;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin: 0 0 12px;
+}
+
+.shop-app .btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #1f3a5f;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.shop-app .btn:hover {
+  opacity: 0.92;
+}
+
+.shop-app .btn:active {
+  transform: scale(0.98);
+}
+
+.shop-app .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.shop-app .btn-green {
+  background: #1e7a4d;
+}
+
+.shop-app .btn-grey {
+  background: #6b7280;
+}
+
+.shop-app .link-btn {
+  background: none;
+  border: none;
+  color: #1f3a5f;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 0;
+  cursor: pointer;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.shop-app .link-btn:hover {
+  text-decoration: underline;
+}
+
+.shop-app .actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* Customer Summary Card */
+.customer-summary-card {
+  border-top: 4px solid #1f3a5f;
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-top-row h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.status-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-pill.owing {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-pill.settled {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.balance-box {
+  background: #faf8f5;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 16px 0 6px;
+}
+
+.balance-label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.shop-app .big-balance {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 4px 0 0;
+}
+
+.big-balance.red {
+  color: #b3261e;
+}
+
+.big-balance.green {
+  color: #1e7a4d;
+}
+
+/* Customer & Entry List Rows */
+.shop-app .customer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd8cd;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.shop-app .customer-row:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.customer-info strong {
+  font-size: 1.05rem;
+  display: block;
+}
+
+.customer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.delete-icon-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.delete-icon-btn:hover {
+  color: #ef4444;
+  background: #fee2e2;
+}
+
+.shop-app .balance {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.balance.owing {
+  color: #b3261e;
+}
+
+.balance.settled {
+  color: #6b7280;
+}
+
+.balance.advance {
+  color: #1e7a4d;
+}
+
+/* Entry rows */
+.shop-app .entry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd8cd;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+
+.entry-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.badge-credit {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-payment {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.entry-note {
+  margin: 2px 0 0;
+  font-size: 0.95rem;
+  color: #1c2530;
+  font-weight: 500;
+}
+
+.small-date {
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.entry-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.credit-amount {
+  color: #b3261e;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.payment-amount {
+  color: #1e7a4d;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.empty-card {
+  text-align: center;
+  padding: 30px;
+}
+
+.shop-app .muted {
+  margin: 2px 0 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.shop-app .empty {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Modal */
+.shop-app .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.shop-app .modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.shop-app .modal h2 {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.shop-app .toggle {
+  display: flex;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #1f3a5f;
+}
+
+.shop-app .toggle button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #fff;
+  color: #1f3a5f;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.shop-app .toggle button.active.credit-toggle {
+  background: #b3261e;
+  color: #fff;
+}
+
+.shop-app .toggle button.active.payment-toggle {
+  background: #1e7a4d;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .shop-app .actions .btn {
+    width: 100%;
+  }
+}
