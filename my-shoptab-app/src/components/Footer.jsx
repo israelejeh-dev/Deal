@@ -1,5 +1,7 @@
 import { brand, footerColumns } from "../data";
 
+const currentYear = new Date().getFullYear();
+
 function Footer() {
   // Smoothly scrolls back to the top of the page
   function goToTop() {
@@ -27,7 +29,7 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} {brand}. All rights reserved</p>
+        <p>© {currentYear} {brand}. All rights reserved</p>
         <button className="top-btn" onClick={goToTop}>↑ Back to top</button>
       </div>
     </footer>

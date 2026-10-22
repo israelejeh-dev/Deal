@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getEntries, deleteEntry } from "./storage";
 import RecordEntryModal from "./RecordEntryModal";
 
@@ -7,12 +7,7 @@ function LedgerHistory({ customer, onBack }) {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Load ledger entries when viewing this customer
-  useEffect(() => {
-    loadEntries();
-  }, [customer.id]);
-
-  async function loadEntries() {
+  const loadEntries = useCallback(async () => {
     setLoading(true);
     try {
       const list = await getEntries(customer.id);
@@ -22,7 +17,13 @@ function LedgerHistory({ customer, onBack }) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [customer.id]);
+
+  // Load ledger entries when viewing this customer
+  useEffect(() => {
+    loadEntries();
+  }, [loadEntries]);
+
 
   // Calculate current customer balance
   // Credits add to debt, payments reduce debt
