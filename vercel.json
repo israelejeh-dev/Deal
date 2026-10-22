@@ -1,5 +1,11 @@
 {
-  "buildCommand": "npm --prefix my-shoptab-app run build",
+  "installCommand": "npm install --prefix my-shoptab-app",
+  "buildCommand": "npm run build --prefix my-shoptab-app",
   "outputDirectory": "my-shoptab-app/dist",
-  "framework": "vite"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
