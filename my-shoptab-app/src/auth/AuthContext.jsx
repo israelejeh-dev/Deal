@@ -187,6 +187,12 @@ export function AuthProvider({ children }) {
 
       return userData;
     } catch (err) {
+      // Only allow the offline fallback when the problem is the network.
+      // A wrong password must never log the user in.
+      if (err.code !== "auth/network-request-failed") {
+        throw err;
+      }
+
       // Check if user previously logged in offline
       const saved = localStorage.getItem(LOCAL_USER_KEY);
       if (saved) {

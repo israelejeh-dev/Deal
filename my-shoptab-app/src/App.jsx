@@ -21,6 +21,10 @@ function App() {
 
   // Opens the ShopTab notebook app
   function openApp() {
+    if (!user) {
+      setAuthModalMode("login");
+      return;
+    }
     setPage("app");
     window.scrollTo(0, 0);
   }
@@ -38,8 +42,8 @@ function App() {
   }
 
   function handleAuthSuccess() {
-    // When login/signup succeeds, open the shop notebook directly
-    openApp();
+    setPage("app");
+    window.scrollTo(0, 0);
   }
 
   if (page === "app") {
