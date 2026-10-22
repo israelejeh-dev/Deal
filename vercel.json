@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm --prefix my-shoptab-app run build",
+  "outputDirectory": "my-shoptab-app/dist",
+  "framework": "vite"
+}

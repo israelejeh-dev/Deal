@@ -73,13 +73,37 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
+  // Helper: Fast timeout for auth calls (2000ms max)
+  function withAuthTimeout(promise, ms = 2000) {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        const err = new Error("Firebase Auth network timeout");
+        err.code = "auth/network-request-failed";
+        reject(err);
+      }, ms);
+
+      promise
+        .then((val) => {
+          clearTimeout(timer);
+          resolve(val);
+        })
+        .catch((err) => {
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
+  }
+
   // Email / Password Sign up
   async function signup(name, email, password) {
     const trimmedName = name.trim();
     const trimmedEmail = email.trim();
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, trimmedEmail, password);
+      const userCredential = await withAuthTimeout(
+        createUserWithEmailAndPassword(auth, trimmedEmail, password),
+        2500
+      );
       if (trimmedName && userCredential.user) {
         await updateProfile(userCredential.user, { displayName: trimmedName });
       }
@@ -108,7 +132,8 @@ export function AuthProvider({ children }) {
         err.code === "auth/network-request-failed" ||
         err.code === "auth/api-key-not-valid" ||
         err.code === "auth/operation-not-allowed" ||
-        err.message?.includes("network")
+        err.message?.includes("network") ||
+        err.message?.includes("timeout")
       ) {
         console.warn("Firebase Auth unavailable, creating local user session:", err.message);
         const localUid = "local_" + Date.now();
@@ -139,7 +164,10 @@ export function AuthProvider({ children }) {
     const trimmedEmail = email.trim();
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, trimmedEmail, password);
+      const userCredential = await withAuthTimeout(
+        signInWithEmailAndPassword(auth, trimmedEmail, password),
+        2500
+      );
       const userData = {
         uid: userCredential.user.uid,
         email: userCredential.user.email,
