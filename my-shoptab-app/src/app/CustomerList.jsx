@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { getCustomers, getEntries, deleteCustomer, isUsingLocalStorage } from "./storage";
 
 function CustomerList({ refreshKey, onSelect }) {
@@ -7,8 +7,7 @@ function CustomerList({ refreshKey, onSelect }) {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  const loadData = useCallback(async () => {
-    setLoading(true);
+  async function loadData() {
     try {
       const [customerData, entryData] = await Promise.all([
         getCustomers(),
@@ -21,12 +20,34 @@ function CustomerList({ refreshKey, onSelect }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }
 
   // Load customer data when the component loads or refreshKey changes
   useEffect(() => {
-    loadData();
-  }, [refreshKey, loadData]);
+    let isMounted = true;
+    async function fetchData() {
+      try {
+        const [customerData, entryData] = await Promise.all([
+          getCustomers(),
+          getEntries(),
+        ]);
+        if (isMounted) {
+          setCustomers(customerData);
+          setEntries(entryData);
+          setLoading(false);
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error("Failed to load customers:", error);
+          setLoading(false);
+        }
+      }
+    }
+    fetchData();
+    return () => {
+      isMounted = false;
+    };
+  }, [refreshKey]);
 
 
   // Calculate balance: credits minus payments
