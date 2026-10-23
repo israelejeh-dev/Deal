@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
 
   // Listen to Firebase Auth state
   useEffect(() => {
-    let unsubscribe = () => {};
+    let unsubscribe = () => { };
     try {
       unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
         if (firebaseUser) {
