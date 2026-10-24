@@ -7,13 +7,14 @@
 import {
   collection,
   getDocs,
-  addDoc,
+  setDoc,
   deleteDoc,
   doc,
   query,
   orderBy,
   where,
-} from "firebase/firestore";
+} 
+from "firebase/firestore";
 import { db } from "./firebaseClient";
 
 // Keys used to save data in the browser's localStorage
@@ -147,22 +148,10 @@ export async function addCustomer(name, phone) {
   if (!isFirebaseOnCooldown()) {
     (async () => {
       try {
-        const docRef = await withTimeout(
-          addDoc(collection(db, "customers"), {
-            name: newCustomer.name,
-            phone: newCustomer.phone,
-            created_at: newCustomer.created_at,
-          }),
-          2000
-        );
-        if (docRef && docRef.id) {
-          const current = getLocalCustomers();
-          const idx = current.findIndex((c) => c.id === localId);
-          if (idx !== -1) {
-            current[idx].id = docRef.id;
-            saveLocalCustomers(current);
-          }
-        }
+        await withTimeout( setDoc(doc(db, "customers", localId),
+        { name: newCustomer.name, phone: newCustomer.phone, created_at:
+        newCustomer.created_at, }), 2000 );
+
       } catch (err) {
         markFirebaseFailed(err);
       }
@@ -183,7 +172,7 @@ export async function deleteCustomer(customerId) {
   saveLocalEntries(localEntries);
 
   // 2. Remove from Firebase in the background
-  if (!isFirebaseOnCooldown() && !customerId.startsWith("cust_") && !customerId.startsWith("local_")) {
+  if (!isFirebaseOnCooldown()) {
     (async () => {
       try {
         await withTimeout(deleteDoc(doc(db, "customers", customerId)), 2000);
@@ -262,24 +251,11 @@ export async function addEntry(customerId, type, amount, note) {
   if (!isFirebaseOnCooldown()) {
     (async () => {
       try {
-        const docRef = await withTimeout(
-          addDoc(collection(db, "ledger_entries"), {
-            customer_id: newEntry.customer_id,
-            type: newEntry.type,
-            amount: newEntry.amount,
-            note: newEntry.note,
-            created_at: newEntry.created_at,
-          }),
-          2000
-        );
-        if (docRef && docRef.id) {
-          const current = getLocalEntries();
-          const idx = current.findIndex((e) => e.id === localId);
-          if (idx !== -1) {
-            current[idx].id = docRef.id;
-            saveLocalEntries(current);
-          }
-        }
+        await withTimeout( setDoc(doc(db, "ledger_entries", localId),{ 
+        customer_id: newEntry.customer_id, type: newEntry.type, amount:
+        newEntry.amount, note: newEntry.note, created_at: newEntry.created_at, }),
+        2000 );
+
       } catch (err) {
         markFirebaseFailed(err);
       }
@@ -292,19 +268,16 @@ export async function addEntry(customerId, type, amount, note) {
 
 // 3. Delete a single ledger entry (INSTANT DELETE)
 export async function deleteEntry(entryId) {
-  // 1. Remove locally immediately
-  const localEntries = getLocalEntries().filter((e) => e.id !== entryId);
+  // Remove locally immediately
+  const localEntries = getLocalEntries().filter((entry) => entry.id !== entryId);
   saveLocalEntries(localEntries);
 
-  // 2. Delete from Firebase in the background
-  if (!isFirebaseOnCooldown() && !entryId.startsWith("entry_") && !entryId.startsWith("local_")) {
-    (async () => {
-      try {
-        await withTimeout(deleteDoc(doc(db, "ledger_entries", entryId)), 2000);
-      } catch (err) {
-        markFirebaseFailed(err);
-      }
-    })();
+  // Delete from Firebase and wait for the result
+  try {
+    await withTimeout(deleteDoc(doc(db, "ledger_entries", entryId)), 2000);
+  } catch (err) {
+    markFirebaseFailed(err);
+    throw err;
   }
 }
 

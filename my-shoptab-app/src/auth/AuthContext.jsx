@@ -227,32 +227,17 @@ export function AuthProvider({ children }) {
     return { success: true, isDevTest: true };
   }
 
-  async function verifyOtp(otp) {
-    if (otp === "123456" || otp.length === 6) {
-      const uid = "phone_" + (pendingPhone.replace(/[^0-9]/g, "") || Date.now());
-      const userData = {
-        uid,
-        phoneNumber: formatPhoneNumberE164(pendingPhone),
-        displayName: "Shopkeeper (" + (pendingPhone.slice(-4) || "user") + ")",
-      };
-      setUser(userData);
-      localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(userData));
-
-      const savedShop = localStorage.getItem(LOCAL_SHOP_KEY);
-      const hasShop = !!savedShop;
-      if (!hasShop) {
-        const defaultShop = {
-          id: uid,
-          name: "My Shop",
-          ownerUid: uid,
-        };
-        setShop(defaultShop);
-        localStorage.setItem(LOCAL_SHOP_KEY, JSON.stringify(defaultShop));
-      }
-      return { user: userData, hasShop };
-    }
-    throw new Error("Invalid verification code. Please check and try again.");
-  }
+  async function verifyOtp(otp) { if (otp !== "123456") { throw new
+  Error("Invalid verification code. Please check and try again."); } const 
+  uid = "phone_" + (pendingPhone.replace(/[^0-9]/g, "") || Date.now());
+  const userData = { uid, phoneNumber: formatPhoneNumberE164(pendingPhone), 
+  displayName: "Shopkeeper (" + (pendingPhone.slice(-4) || "user") + ")", };
+  setUser(userData); localStorage.setItem(LOCAL_USER_KEY,
+  JSON.stringify(userData)); const savedShop = 
+  localStorage.getItem(LOCAL_SHOP_KEY); const hasShop = !!savedShop; if 
+  (!hasShop) { const defaultShop = { id: uid, name: "My Shop", ownerUid:
+  uid,}; setShop(defaultShop); localStorage.setItem(LOCAL_SHOP_KEY,
+  JSON.stringify(defaultShop)); } return { user: userData, hasShop }; }
 
   // Save shop name during setup
   async function saveShopSetup(shopName) {
