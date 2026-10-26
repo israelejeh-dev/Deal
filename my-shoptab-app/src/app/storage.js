@@ -164,22 +164,23 @@ export async function addCustomer(name, phone) {
 
 // 3. Delete a customer (INSTANT DELETE)
 export async function deleteCustomer(customerId) {
-  // 1. Remove from local storage immediately
-  const localCustomers = getLocalCustomers().filter((c) => c.id !== customerId);
+  // Remove the customer and local ledger entries immediately.
+  const localCustomers = getLocalCustomers().filter(
+    (customer) => customer.id !== customerId
+  );
   saveLocalCustomers(localCustomers);
 
-  const localEntries = getLocalEntries().filter((e) => e.customer_id !== customerId);
+  const localEntries = getLocalEntries().filter(
+    (entry) => entry.customer_id !== customerId
+  );
   saveLocalEntries(localEntries);
 
-  // 2. Remove from Firebase in the background
-  if (!isFirebaseOnCooldown()) {
-    (async () => {
-      try {
-        await withTimeout(deleteDoc(doc(db, "customers", customerId)), 2000);
-      } catch (err) {
-        markFirebaseFailed(err);
-      }
-    })();
+  // Delete the customer from Firebase and wait for completion.
+  try {
+    await withTimeout(deleteDoc(doc(db, "customers", customerId)), 2000);
+  } catch (err) {
+    markFirebaseFailed(err);
+    throw err;
   }
 }
 
