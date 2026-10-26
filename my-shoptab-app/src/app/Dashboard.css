@@ -1,0 +1,100 @@
+.dashboard { padding: 32px 0 48px; } .dashboard-heading { display: flex;
+align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; } .dashboard-label { margin: 0 0 8px; color: #667085; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; } .dashboard-heading h2 { margin: 0; color: #17365d; font-size: 32px; line-height: 1.15; } .dashboard-primary-btn { border: 0; border-radius: 10px; background: #173f70; color: white; cursor: pointer; font-size: 15px; font-weight: 700; padding: 14px 20px; } .dashboard-primary-btn:hover { background: #0f2e55; } .dashboard-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 28px; } .dashboard-stat-card { min-height: 120px; padding: 22px; border: 1px solid #e6e8ec; border-radius: 16px; background: #ffffff; box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06); } .dashboard-stat-card span {
+  display: block;
+  margin-bottom: 16px;
+  color: #667085;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dashboard-stat-card strong {
+  color: #17365d;
+  font-size: 30px;
+}
+
+.dashboard-debt-card strong {
+  color: #c62828;
+}
+
+.dashboard-payment-card strong {
+  color: #16804b;
+}
+
+.dashboard-panel {
+  padding: 24px;
+  border: 1px solid #e6e8ec;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
+}
+
+.dashboard-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.dashboard-panel-heading h3 {
+  margin: 0;
+  color: #17365d;
+  font-size: 21px;
+}
+
+.dashboard-panel-heading span {
+  color: #667085;
+  font-size: 14px;
+}
+
+.dashboard-empty,
+.dashboard-loading {
+  color: #667085;
+  font-size: 16px;
+}
+
+.dashboard-transaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  border-top: 1px solid #eef0f3;
+}
+
+.dashboard-transaction strong {
+  color: #344054;
+  font-size: 15px;
+}
+
+.dashboard-transaction p {
+  margin: 5px 0 0;
+  color: #667085;
+  font-size: 14px;
+}
+
+.transaction-credit,
+.transaction-payment {
+  font-size: 16px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.transaction-credit {
+  color: #c62828;
+}
+
+.transaction-payment {
+  color: #16804b;
+}
+
+@media (max-width: 768px) {
+  .dashboard-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-stat-grid {
+    grid-template-columns: 1fr;
+  }
+}		
